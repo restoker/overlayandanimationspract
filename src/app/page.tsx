@@ -1,9 +1,10 @@
-"use client";
+// "use client";
+import MarqueeImageScroll from "@/components/MarqueeImageScroll";
 import Nav from "@/components/Nav";
-import { useViewTransition } from "@/hooks/useViewTransition";
+// import { useViewTransition } from "@/hooks/useViewTransition";
 
 export default function Home() {
-  const { navigateWithTransition } = useViewTransition();
+  // const { navigateWithTransition } = useViewTransition();
   return (
     <div
       className="relative"
@@ -20,23 +21,27 @@ export default function Home() {
           filter: "drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.5))",
         }}
       ></div> */}
-      <video
-        autoPlay
-        muted
-        loop
-        src="/videos/intro.mp4"
-        className="absolute top-0 left-0 w-dvw h-dvh object-cover object-center"
-      />
+      <div className="h-dvh w-full relative">
+        <div className="bg-gradient-to-t to-transparent from-5%% from-black absolute top-0 left-0 w-full h-dvh z-10" />
+        <video
+          autoPlay
+          muted
+          loop
+          src="/videos/flower.mp4"
+          className="absolute top-0 left-0 w-full h-dvh object-cover object-center"
+        />
+      </div>
       <Nav />
-      <h1 className="text-[10rem] font-bold uppercase">Hola</h1>
-      <a href="/about" onClick={(e) => {
+      {/* <h1 className="text-[10rem] font-bold uppercase text-white">Hola</h1> */}
+      <MarqueeImageScroll />
+      {/* <a href="/about" onClick={(e) => {
         e.preventDefault();
         navigateWithTransition("/about");
       }}>About</a>
       <a href="/contact" onClick={(e) => {
         e.preventDefault();
         navigateWithTransition("/contact");
-      }}>Contact</a>
+      }}>Contact</a> */}
     </div>
   );
 }

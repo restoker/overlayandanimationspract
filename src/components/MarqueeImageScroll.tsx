@@ -1,0 +1,114 @@
+'use client';
+import React from 'react'
+import { useGSAP } from '@gsap/react'
+import { useLenis } from 'lenis/react';
+import gsap from 'gsap';
+import { dataCol1, dataCol2 } from '@/app/data';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
+
+const MarqueeImageScroll = () => {
+
+    const lenis = useLenis();
+
+    useGSAP(() => {
+        if (!lenis) return;
+        const scrollSelector = {
+            element: document.querySelector(".scroll"),
+            wrapper: document.querySelector(".scroll_wrapper"),
+        };
+
+        const createContents = () => {
+            const datasets = [dataCol1, dataCol2];
+
+            datasets.forEach((data) => {
+                const scrollRow = document.createElement("div");
+                scrollRow.classList.add("scroll_row");
+                scrollSelector.wrapper?.appendChild(scrollRow);
+
+                data.forEach((item, i) => {
+                    const scrollItem = document.createElement("div");
+                    scrollItem.classList.add("scroll_row_item");
+                    scrollItem.id = item.id;
+
+                    scrollItem.innerHTML = `
+                    <div class="scroll_row_item_img h-[25rem] w-[18rem] ${i % 2 === 0 ? "rounded-tl-4xl rounded-bl-4xl" : "rounded-tr-4xl rounded-br-4xl"}">
+                        <img class="${i % 2 === 0 ? "rounded-tl-4xl rounded-bl-4xl" : "rounded-tr-4xl rounded-br-4xl"} h-[25rem] w-[18rem]" src="${item.img}" alt="" />
+                    </div>
+                `;
+
+                    scrollRow.appendChild(scrollItem);
+                });
+            });
+        };
+        lenis.on("scroll", ({ scroll }) => {
+            ScrollTrigger.update();
+            // animateHero(scroll);
+        });
+        // const initLenis = () => {
+        //   const lenis = new Lenis({
+        //     lerp: 0.04,
+        //     smoothWheel: true,
+        //   });
+        //   lenis.on("scroll", ({ scroll }) => {
+        //     ScrollTrigger.update();
+        //     animateHero(scroll);
+        //   });
+        //   gsap.ticker.add((time) => lenis.raf(time * 1000));
+        //   gsap.ticker.lagSmoothing(0);
+        // };
+
+        // const animateHero = (scroll: number) => {
+        //     // console.log(scroll);
+        //     const heroFigure = document.querySelector(".hero_figure").children[0];
+        //     heroFigure.style.transform = `translateY(${-scroll * 0.05}px) scale(${1 - scroll * 0.001})`;
+        // };
+
+        const animateMedia = () => {
+            const scrollRows = document.querySelectorAll(".scroll_row");
+            let scrollRowWidth: number = 0;
+            const windowWidth = window.innerWidth;
+
+            // scrollRows.forEach((item) => {
+            //     scrollRowWidth = item.getBoundingClientRect().width;
+            //     // console.log(scrollRowWidth);
+            // });
+            for (const element of scrollRows) {
+                scrollRowWidth = element.getBoundingClientRect().width;
+            }
+            // console.log(scrollRowWidth - windowWidth);
+
+            gsap.set(scrollRows[0], { x: 0 });
+            gsap.set(scrollRows[1], { x: `${-scrollRowWidth + windowWidth}` });
+
+            const tl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: scrollSelector.element,
+                    start: "top bottom",
+                    end: "bottom top",
+                    scrub: true,
+                },
+            });
+            tl.to(scrollRows[0], {
+                x: `-${scrollRowWidth - windowWidth}`,
+            });
+            tl.to(scrollRows[1], { x: 0 }, 0);
+        };
+
+        createContents();
+        // initLenis();
+        animateMedia();
+
+    }, [lenis])
+
+    return (
+        <div>
+            <section className="scroll relative w-full h-full overflow-hidden py-[2rem]">
+                <div className="scroll_wrapper"></div>
+            </section>
+        </div>
+    )
+}
+
+export default MarqueeImageScroll
