@@ -1,5 +1,5 @@
 'use client';
-import React from 'react'
+import React, { useCallback } from 'react'
 import { useGSAP } from '@gsap/react'
 import { useLenis } from 'lenis/react';
 import gsap from 'gsap';
@@ -12,6 +12,30 @@ const MarqueeImageScroll = () => {
 
     const lenis = useLenis();
 
+    const createContents = useCallback(() => {
+        const datasets = [dataCol1, dataCol2];
+
+        datasets.forEach((data) => {
+            const scrollRow = document.createElement("div");
+            scrollRow.classList.add("scroll_row");
+            document.querySelector(".scroll_wrapper")?.appendChild(scrollRow);
+
+            data.forEach((item, i) => {
+                const scrollItem = document.createElement("div");
+                scrollItem.classList.add("scroll_row_item");
+                scrollItem.id = item.id;
+
+                scrollItem.innerHTML = `
+                <div class="scroll_row_item_img md:h-[25rem] md:w-[18rem] h-[10rem] w-[5rem] ${i % 2 === 0 ? "rounded-tl-4xl rounded-bl-4xl" : "rounded-tr-4xl rounded-br-4xl"}">
+                    <img class="${i % 2 === 0 ? "rounded-tl-4xl rounded-bl-4xl" : "rounded-tr-4xl rounded-br-4xl"} md:h-[25rem] md:w-[18rem] h-[10rem] w-[5rem] border-[1px] border-amber-400/20" src="${item.img}" alt="" />
+                </div>
+            `;
+
+                scrollRow.appendChild(scrollItem);
+            });
+        });
+    }, []);
+
     useGSAP(() => {
         if (!lenis) return;
         const scrollSelector = {
@@ -19,29 +43,6 @@ const MarqueeImageScroll = () => {
             wrapper: document.querySelector(".scroll_wrapper"),
         };
 
-        const createContents = () => {
-            const datasets = [dataCol1, dataCol2];
-
-            datasets.forEach((data) => {
-                const scrollRow = document.createElement("div");
-                scrollRow.classList.add("scroll_row");
-                scrollSelector.wrapper?.appendChild(scrollRow);
-
-                data.forEach((item, i) => {
-                    const scrollItem = document.createElement("div");
-                    scrollItem.classList.add("scroll_row_item");
-                    scrollItem.id = item.id;
-
-                    scrollItem.innerHTML = `
-                    <div class="scroll_row_item_img h-[25rem] w-[18rem] ${i % 2 === 0 ? "rounded-tl-4xl rounded-bl-4xl" : "rounded-tr-4xl rounded-br-4xl"}">
-                        <img class="${i % 2 === 0 ? "rounded-tl-4xl rounded-bl-4xl" : "rounded-tr-4xl rounded-br-4xl"} h-[25rem] w-[18rem]" src="${item.img}" alt="" />
-                    </div>
-                `;
-
-                    scrollRow.appendChild(scrollItem);
-                });
-            });
-        };
         lenis.on("scroll", ({ scroll }) => {
             ScrollTrigger.update();
             // animateHero(scroll);
