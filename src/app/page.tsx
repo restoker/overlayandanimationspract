@@ -5,11 +5,27 @@ import { useViewTransition } from "@/hooks/useViewTransition";
 export default function Home() {
   const { navigateWithTransition } = useViewTransition();
   return (
-    <div className="">
-      <img
-        src="https://images.unsplash.com/photo-1511485977113-f34c92461ad9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
-        alt=""
-        className="absolute top-0 left-0 w-full h-full object-cover object-center"
+    <div
+      className="relative"
+    >
+      {/* <div
+        className="h-[calc(100dvh)] w-full"
+        style={{
+          // backgroundImage: "linear-gradient(to bottom, rgba(0, 0, 0, 1), oklch(84.1% 0.238 128.85/10%)), url('https://cdn.cosmos.so/419ad5d8-ccc2-4976-a744-087d7ab1d005?format=jpeg')",
+          background: "linear-gradient(to bottom, rgba(255,255,255,0.5), rgba(0,0,0,0.4), rgba(255,255,255,0.5)), url('https://cdn.cosmos.so/81be8635-d727-4c7d-8cdd-5d61e756876d?format=jpeg') no-repeat 10% 10%",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          backgroundAttachment: "fixed",
+          filter: "drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.5))",
+        }}
+      ></div> */}
+      <video
+        autoPlay
+        muted
+        loop
+        src="/videos/intro.mp4"
+        className="absolute top-0 left-0 w-dvw h-dvh object-cover object-center"
       />
       <Nav />
       <h1 className="text-[10rem] font-bold uppercase">Hola</h1>

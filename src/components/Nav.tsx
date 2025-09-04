@@ -226,29 +226,29 @@ const Nav = () => {
   return (
     <>
       <MenuBtn isOpen={isOpen} toggleMenu={toggleMenu} />
-      <div className="menu fixed top-0 left-0 w-full h-full clip-path-circle-0_at_50_50 overflow-hidden z-[100] m-2 bg-[#111]" ref={menuRef}>
-        <div className="menu-wrapper bg-lime-400 relative w-full h-full flex flex-col justify-between gap-8 rounded-4xl">
+      <div className="menu fixed top-0 left-0 w-full h-full clip-path-circle-0_at_50_50 overflow-hidden z-[100] m-2 bg-transparent rounded-4xl" ref={menuRef}>
+        <div className="menu-wrapper bg-lime-50/5 backdrop-blur-xl relative w-full h-full flex flex-col justify-between gap-8 rounded-4xl">
           <div className="col col-1 relative h-full flex flex-3 p-8">
             <div className="links">
               <div className="link relative pointer-events-auto">
                 <a href="/" onClick={(e) => handleLinkClick(e, "/")}>
-                  <h2 className="decoration-0 text-[rgb(153, 143, 130)] text-6xl pointer-events-none transition duration-300 ease-out leading-[1.1] hover:text-black text-zinc-400">Index</h2>
+                  <h2 className="decoration-0 text-[rgb(153, 143, 130)] text-6xl pointer-events-none transition duration-300 ease-out leading-[1.1] hover:text-amber-400 text-zinc-400">Index</h2>
                 </a>
               </div>
               <div className="link relative pointer-events-auto">
                 <a
-                  href="/studio"
-                  onClick={(e) => handleLinkClick(e, "/studio")}
+                  href="/contact"
+                  onClick={(e) => handleLinkClick(e, "/contact")}
                 >
-                  <h2 className="decoration-0 text-[rgb(153, 143, 130)] text-6xl pointer-events-none transition duration-300 ease-out leading-[1.1] hover:text-black text-zinc-400">Studio</h2>
+                  <h2 className="decoration-0 text-[rgb(153, 143, 130)] text-6xl pointer-events-none transition duration-300 ease-out leading-[1.1] hover:text-amber-400 text-zinc-400">Contact</h2>
                 </a>
               </div>
               <div className="link relative pointer-events-auto">
                 <a
-                  href="/spaces"
-                  onClick={(e) => handleLinkClick(e, "/spaces")}
+                  href="/about"
+                  onClick={(e) => handleLinkClick(e, "/about")}
                 >
-                  <h2 className="decoration-0 text-[rgb(153, 143, 130)] text-6xl pointer-events-none transition duration-300 ease-out leading-[1.1] hover:text-black text-zinc-400">Our Spaces</h2>
+                  <h2 className="decoration-0 text-[rgb(153, 143, 130)] text-6xl pointer-events-none transition duration-300 ease-out leading-[1.1] hover:text-amber-400 text-zinc-400">About</h2>
                 </a>
               </div>
               <div className="link relative pointer-events-auto">
@@ -256,7 +256,7 @@ const Nav = () => {
                   href="/sample-space"
                   onClick={(e) => handleLinkClick(e, "/sample-space")}
                 >
-                  <h2 className="decoration-0 text-[rgb(153, 143, 130)] text-6xl pointer-events-none transition duration-300 ease-out leading-[1.1] hover:text-black text-zinc-400">One Installation</h2>
+                  <h2 className="decoration-0 text-[rgb(153, 143, 130)] text-6xl pointer-events-none transition duration-300 ease-out leading-[1.1] hover:text-amber-400 text-zinc-400">One Installation</h2>
                 </a>
               </div>
               <div className="link relative pointer-events-auto">
@@ -264,7 +264,7 @@ const Nav = () => {
                   href="/blueprints"
                   onClick={(e) => handleLinkClick(e, "/blueprints")}
                 >
-                  <h2 className="decoration-0 text-[rgb(153, 143, 130)] text-6xl pointer-events-none transition duration-300 ease-out leading-[1.1] hover:text-black text-zinc-400">Blueprints</h2>
+                  <h2 className="decoration-0 text-[rgb(153, 143, 130)] text-6xl pointer-events-none transition duration-300 ease-out leading-[1.1] hover:text-amber-400 text-zinc-400">Blueprints</h2>
                 </a>
               </div>
               <div className="link relative pointer-events-auto">
@@ -272,13 +272,13 @@ const Nav = () => {
                   href="/connect"
                   onClick={(e) => handleLinkClick(e, "/connect")}
                 >
-                  <h2 className="decoration-0 text-[rgb(153, 143, 130)] text-6xl pointer-events-none transition duration-300 ease-out leading-[1.1] hover:text-black text-zinc-400">Connect</h2>
+                  <h2 className="decoration-0 text-[rgb(153, 143, 130)] text-6xl pointer-events-none transition duration-300 ease-out leading-[1.1] hover:text-amber-400 text-zinc-400">Connect</h2>
                 </a>
               </div>
             </div>
           </div>
           <div className="col col-2 relative h-full flex flex-2 p-8 align-end">
-            <div className="socials w-[50%] flex gap-[2em] text-zinc-800">
+            <div className="socials w-[50%] flex gap-[2em] text-zinc-400">
               <div className="sub-col flex-1 flex flex-col justify-end gap-[2rem]">
                 <div className="menu-meta menu-commissions">
                   <p>Commissions</p>
