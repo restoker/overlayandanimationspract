@@ -24,8 +24,8 @@ const TopBar = () => {
                         <span className="sr-only">Your Company</span>
                         <img
                             alt="Your Company"
-                            src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500"
-                            className="h-8 w-auto"
+                            src="https://cdn.cosmos.so/7d926916-feea-442f-9657-f75b223072dc?format=jpeg"
+                            className="h-10 w-auto rounded-full"
                         />
                     </a>
                     {/* <button
