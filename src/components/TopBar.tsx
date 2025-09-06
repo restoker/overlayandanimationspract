@@ -3,6 +3,8 @@ import React, { useState } from 'react'
 import { Dialog, DialogPanel } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { useViewTransition } from '@/hooks/useViewTransition';
+import { usePathname } from 'next/navigation';
+import Link from 'next/link';
 
 const navigation = [
     { name: 'Product', href: '#' },
@@ -15,19 +17,30 @@ const navigation = [
 const TopBar = () => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const { navigateWithTransition } = useViewTransition();
+    const pathname = usePathname();
+    console.log(pathname);
     return (
         <header className="absolute inset-x-0 top-0 z-50">
             <div className="mx-auto max-w-7xl px-6 pt-6 lg:pr-0 lg:pl-8">
                 {/* <div className="px-6 pt-6 lg:max-w-2xl lg:pr-0 lg:pl-8 bg-red-400"> */}
                 <nav aria-label="Global" className="flex items-center justify-between">
-                    <a href="#" className="-m-1.5 p-1.5">
+                    <Link
+                        href="/"
+                        className="-m-1.5 p-1.5"
+                        onClick={(e) => {
+                            e.preventDefault();
+                            if (pathname !== '/') {
+                                navigateWithTransition('/');
+                            }
+                        }}
+                    >
                         <span className="sr-only">Your Company</span>
                         <img
                             alt="Your Company"
                             src="https://cdn.cosmos.so/7d926916-feea-442f-9657-f75b223072dc?format=jpeg"
                             className="h-10 w-auto rounded-full"
                         />
-                    </a>
+                    </Link>
                     {/* <button
                             type="button"
                             onClick={() => setMobileMenuOpen(true)}
