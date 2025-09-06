@@ -2,6 +2,7 @@
 import CtaSection from "@/components/CtaSection";
 import MarqueeImageScroll from "@/components/MarqueeImageScroll";
 import Nav from "@/components/Nav";
+import WorkSection from "@/components/WorkSection";
 // import { useViewTransition } from "@/hooks/useViewTransition";
 
 export default function Home() {
@@ -36,6 +37,7 @@ export default function Home() {
       {/* <h1 className="text-[10rem] font-bold uppercase text-white">Hola</h1> */}
       <MarqueeImageScroll />
       <CtaSection />
+      <WorkSection />
       {/* <a href="/about" onClick={(e) => {
         e.preventDefault();
         navigateWithTransition("/about");

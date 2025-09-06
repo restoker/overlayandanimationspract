@@ -1,0 +1,332 @@
+'use client';
+import { useGSAP } from '@gsap/react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { SplitText } from 'gsap/SplitText';
+import Lenis from 'lenis';
+import React, { useRef } from 'react';
+
+gsap.registerPlugin(SplitText, ScrollTrigger);
+
+const WorkSection = () => {
+    const cardImgRef = useRef<HTMLDivElement>(null);
+
+    useGSAP(() => {
+        function setupMarqueeAnimation() {
+            const marqueeItems = gsap.utils.toArray(".marquee h1");
+            if (marqueeItems.length > 0) {
+                const tl = horizontalLoop(marqueeItems, {
+                    repeat: -1,
+                    paddingRight: 30,
+                });
+            }
+        }
+
+        function horizontalLoop(items: any[], config: any) {
+            items = gsap.utils.toArray(items);
+            config = config || {};
+            let tl = gsap.timeline({
+                repeat: config.repeat,
+                defaults: { ease: "none" },
+            });
+            let length = items.length;
+            let startX = items[0].offsetLeft;
+            let widths: number[] = [];
+            let xPercents: number[] = [];
+            let pixelsPerSecond = (config.speed || 1) * 100;
+            let totalWidth: number, curX: number, distanceToStart: number, distanceToLoop: number, item: any, i: number;
+
+            gsap.set(items, {
+                xPercent: (i: number, el: HTMLElement) => {
+                    let w = (widths[i] = parseFloat(gsap.getProperty(el, "width", "px") as string)) as number;
+                    xPercents[i] = (parseFloat(gsap.getProperty(el, "x", "px") as string) / w) as number * 100 + (gsap.getProperty(el, "xPercent") as number);
+                    return xPercents[i];
+                },
+            });
+
+            gsap.set(items, { x: 0 });
+            totalWidth =
+                items[length - 1].offsetLeft +
+                (xPercents[length - 1] / 100) * widths[length - 1] -
+                startX +
+                items[length - 1].offsetWidth *
+                (gsap.getProperty(items[length - 1], "scaleX") as number) +
+                (parseFloat(config.paddingRight) || 0);
+
+            for (i = 0; i < length; i++) {
+                item = items[i];
+                curX = (xPercents[i] / 100) * widths[i];
+                distanceToStart = item.offsetLeft + curX - startX;
+                distanceToLoop =
+                    distanceToStart + widths[i] * (gsap.getProperty(item, "scaleX") as number);
+                tl.to(
+                    item,
+                    {
+                        xPercent: ((curX - distanceToLoop) / widths[i]) * 100,
+                        duration: distanceToLoop / pixelsPerSecond,
+                    },
+                    0
+                ).fromTo(
+                    item,
+                    { xPercent: ((curX - distanceToLoop + totalWidth) / widths[i]) * 100 },
+                    {
+                        xPercent: xPercents[i],
+                        duration: (curX - distanceToLoop + totalWidth - curX) / pixelsPerSecond,
+                        immediateRender: false,
+                    },
+                    distanceToLoop / pixelsPerSecond
+                );
+            }
+
+            tl.progress(1, true).progress(0, true);
+            return tl;
+        }
+        setupMarqueeAnimation();
+    }, []);
+
+    useGSAP(() => {
+
+        const lenis = new Lenis();
+        lenis.on("scroll", ScrollTrigger.update);
+        gsap.ticker.add((time) => lenis.raf(time * 1000));
+        gsap.ticker.lagSmoothing(0);
+
+        const cards = gsap.utils.toArray<HTMLElement>(".card") as HTMLElement[];
+        // console.log(typeof cards[0]);
+        const introCard = cards[0];
+
+        const titles = gsap.utils.toArray(".card-title h1");
+        titles.forEach((title) => {
+            const split = new SplitText(title as HTMLElement, {
+                type: "chars",
+                charsClass: "char",
+                tag: "div",
+            });
+            split.chars.forEach((char) => {
+                char.innerHTML = `<span>${char.textContent}</span>`;
+            });
+        });
+
+        const cardImgWrapper = introCard.querySelector(".card-img") as HTMLDivElement;
+        const cardImg = introCard.querySelector(".card-img img") as HTMLImageElement;
+        gsap.set(cardImgWrapper, { scale: 0.5, borderRadius: "400px" });
+        gsap.set(cardImg, { scale: 1.5 });
+
+        function animateContentIn(titleChars: NodeListOf<Element>, description: Element | null) {
+            gsap.to(titleChars, { x: "0%", duration: 0.75, ease: "power4.out" });
+            gsap.to(description, {
+                x: 0,
+                opacity: 1,
+                duration: 0.75,
+                delay: 0.1,
+                ease: "power4.out",
+            });
+        }
+
+        function animateContentOut(titleChars: NodeListOf<Element>, description: Element | null) {
+            gsap.to(titleChars, { x: "100%", duration: 0.5, ease: "power4.out" });
+            gsap.to(description, {
+                x: "40px",
+                opacity: 0,
+                duration: 0.5,
+                ease: "power4.out",
+            });
+        }
+
+        const marquee = introCard.querySelector(".card-marquee .marquee");
+        const titleChars = introCard.querySelectorAll(".char span");
+        const description = introCard.querySelector(".card-description");
+
+        ScrollTrigger.create({
+            trigger: introCard,
+            start: "top top",
+            end: "+=300vh",
+            onUpdate: (self) => {
+                const progress = self.progress;
+                const imgScale = 0.5 + progress * 0.5;
+                const borderRadius = 400 - progress * 375;
+                const innerImgScale = 1.5 - progress * 0.5;
+
+                gsap.set(cardImgWrapper, {
+                    scale: imgScale,
+                    borderRadius: borderRadius + "px",
+                });
+                gsap.set(cardImg, { scale: innerImgScale });
+
+                if (imgScale >= 0.5 && imgScale <= 0.75) {
+                    const fadeProgress = (imgScale - 0.5) / (0.75 - 0.5);
+                    gsap.set(marquee, { opacity: 1 - fadeProgress });
+                } else if (imgScale < 0.5) {
+                    gsap.set(marquee, { opacity: 1 });
+                } else if (imgScale > 0.75) {
+                    gsap.set(marquee, { opacity: 0 });
+                }
+
+                // if (progress >= 1 && !introCard.contentRevealed) {
+                //     introCard.contentRevealed = true;
+                //     animateContentIn(titleChars, description);
+                // }
+                // if (progress < 1 && introCard.contentRevealed) {
+                //     introCard.contentRevealed = false;
+                //     animateContentOut(titleChars, description);
+                // }
+                if (progress >= 1) {
+                    animateContentIn(titleChars, description);
+                }
+                if (progress < 1) {
+                    animateContentOut(titleChars, description);
+                }
+            },
+        });
+
+        cards.forEach((card, index) => {
+            const isLastCard = index === cards.length - 1;
+            ScrollTrigger.create({
+                trigger: card,
+                start: "top top",
+                end: isLastCard ? "+=100vh" : "top top",
+                endTrigger: isLastCard ? null : cards[cards.length - 1],
+                pin: true,
+                pinSpacing: isLastCard,
+            });
+        });
+
+        cards.forEach((card, index) => {
+            if (index < cards.length - 1) {
+                const cardWrapper = card.querySelector(".card-wrapper");
+                ScrollTrigger.create({
+                    trigger: cards[index + 1],
+                    start: "top bottom",
+                    end: "top top",
+                    onUpdate: (self) => {
+                        const progress = self.progress;
+                        gsap.set(cardWrapper, {
+                            scale: 1 - progress * 0.25,
+                            opacity: 1 - progress,
+                        });
+                    },
+                });
+            }
+        });
+
+        cards.forEach((card, index) => {
+            if (index > 0) {
+                const cardImg = card.querySelector(".card-img img");
+                const imgContainer = card.querySelector(".card-img");
+                ScrollTrigger.create({
+                    trigger: card,
+                    start: "top bottom",
+                    end: "top top",
+                    onUpdate: (self) => {
+                        const progress = self.progress;
+                        gsap.set(cardImg, { scale: 2 - progress });
+                        gsap.set(imgContainer, { borderRadius: 150 - progress * 125 + "px" });
+                    },
+                });
+            }
+        });
+
+        cards.forEach((card, index) => {
+            if (index === 0) return;
+
+            const cardDescription = card.querySelector(".card-description");
+            const cardTitleChars = card.querySelectorAll(".char span");
+
+            ScrollTrigger.create({
+                trigger: card,
+                start: "top top",
+                onEnter: () => animateContentIn(cardTitleChars, cardDescription),
+                onLeaveBack: () => animateContentOut(cardTitleChars, cardDescription),
+            });
+        });
+    }, []);
+
+    return (
+        <div className="overflow-x-hidden">
+            <section className="relative flex flex-col gap-[25dvh] w-dvw bg-zinc-950 text-white">
+                <div className="card">
+                    <div className="card-marquee">
+                        <div className="marquee">
+                            <h1>Design Beyond Boundaries</h1>
+                            <h1>Built for Tomorrow</h1>
+                            <h1>Real Impact</h1>
+                            <h1>Digital Visions</h1>
+                        </div>
+                    </div>
+                    <div className="card-wrapper">
+                        <div className="card-content">
+                            <div className="card-title">
+                                <h1>Curved Horizon</h1>
+                            </div>
+                            <div className="card-description">
+                                <p>
+                                    A futuristic residence that plays with curvature and flow,
+                                    blending bold geometry with natural topography.
+                                </p>
+                            </div>
+                        </div>
+                        <div ref={cardImgRef} className="card-img">
+                            <img src="/img/card-img-1.jpg" alt="" />
+                        </div>
+                    </div>
+                </div>
+                <div className="card">
+                    <div className="card-wrapper">
+                        <div className="card-content">
+                            <div className="card-title">
+                                <h1>Glass Haven</h1>
+                            </div>
+                            <div className="card-description">
+                                <p>
+                                    A sleek pavilion of pure transparency, openness and light,
+                                    designed to dissolve into its environment.
+                                </p>
+                            </div>
+                        </div>
+                        <div className="card-img">
+                            <img src="/img/card-img-2.jpg" alt="" />
+                        </div>
+                    </div>
+                </div>
+                <div className="card">
+                    <div className="card-wrapper">
+                        <div className="card-content">
+                            <div className="card-title">
+                                <h1>Moss Cube</h1>
+                            </div>
+                            <div className="card-description">
+                                <p>
+                                    A minimalist cube home crowned with a living moss dome, merging
+                                    micro-architecture with ecological design.
+                                </p>
+                            </div>
+                        </div>
+                        <div className="card-img">
+                            <img src="/img/card-img-3.jpg" alt="" />
+                        </div>
+                    </div>
+                </div>
+                <div className="card">
+                    <div className="card-wrapper">
+                        <div className="card-content">
+                            <div className="card-title">
+                                <h1>Floating Shelter</h1>
+                            </div>
+                            <div className="card-description">
+                                <p>
+                                    This design explores an ethereal structure perched on a grassy
+                                    islet, seemingly hovering above water.
+                                </p>
+                            </div>
+                        </div>
+                        <div className="card-img">
+                            <img src="/img/card-img-4.jpg" alt="" />
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    )
+}
+
+export default WorkSection
