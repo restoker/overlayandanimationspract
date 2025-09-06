@@ -28,7 +28,7 @@ const TitleAndSubtitle = () => {
                 chars: "01!<>-_\\/[]{}—=+*^?#________",
             },
             ease: "power3.out",
-            duration: 1,
+            duration: 0.9,
         });
     }
 

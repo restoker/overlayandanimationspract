@@ -16,7 +16,7 @@ export default function Login() {
                             </div>
                             <div className="mt-10">
                                 <div>
-                                    <form action="#" method="POST" className="space-y-6">
+                                    <form className="space-y-6">
                                         <div>
                                             <label htmlFor="email" className="block text-sm/6 font-medium text-gray-100">
                                                 Email address
@@ -152,11 +152,21 @@ export default function Login() {
                         </div>
                     </div>
                     <div className="relative hidden w-0 flex-1 lg:block">
-                        <img
+                        {/* <img
                             alt=""
                             src="https://images.unsplash.com/photo-1496917756835-20cb06e75b4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1908&q=80"
                             className="absolute inset-0 size-full object-cover"
-                        />
+                        /> */}
+                        <video
+                            autoPlay
+                            muted
+                            loop
+                            // src="https://cdn.cosmos.so/d77261aa-73fe-447d-9120-0f351a6d4ff7.mp4"
+                            // src="https://cdn.cosmos.so/b29962bb-2ce9-42ac-8a64-176df93a66cb.mp4"
+                            src="https://cdn.cosmos.so/5b4ab569-c375-4f0e-bf59-61dc98375bad.mp4"
+                            className="absolute inset-0 size-full object-cover"
+                        >
+                        </video>
                     </div>
                 </div>
             </div>
