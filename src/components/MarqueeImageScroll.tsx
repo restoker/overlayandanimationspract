@@ -115,13 +115,13 @@ const MarqueeImageScroll = () => {
                         {dataCol1.map((item, i) => (
                             <div key={item.id} className="scroll_row_item">
                                 <div className={clsx(
-                                    "scroll_row_item_img md:h-[20rem] md:w-[18rem] h-[10rem] w-[5rem]",
+                                    "scroll_row_item_img md:h-[20rem] md:w-[11rem] h-[10rem] w-[5rem]",
                                     i % 2 === 0
                                         ? "rounded-tl-4xl rounded-bl-4xl"
                                         : "rounded-tr-4xl rounded-br-4xl"
                                 )}>
                                     <img src={item.img} alt="" className={clsx(
-                                        "md:h-[20rem] md:w-[18rem] h-[10rem] w-[5rem] border-[1px] border-amber-400/20", i % 2 === 0 ? "rounded-tl-4xl rounded-bl-4xl" : "rounded-tr-4xl rounded-br-4xl")} />
+                                        "md:h-[20rem] md:w-[11rem] h-[10rem] w-[5rem] border-[1px] border-amber-400/20 object-cover", i % 2 === 0 ? "rounded-tl-4xl rounded-bl-4xl" : "rounded-tr-4xl rounded-br-4xl")} />
                                 </div>
                             </div>
                         ))}
@@ -129,8 +129,8 @@ const MarqueeImageScroll = () => {
                     <div className="scroll_row">
                         {dataCol2.map((item, i) => (
                             <div key={item.id} className="scroll_row_item">
-                                <div className={clsx("scroll_row_item_img md:h-[20rem] md:w-[18rem] h-[10rem] w-[5rem]", i % 2 === 0 ? "rounded-tl-4xl rounded-bl-4xl" : "rounded-tr-4xl rounded-br-4xl")}>
-                                    <img src={item.img} alt="" className={clsx("md:h-[20rem] md:w-[18rem] h-[10rem] w-[5rem] border-[1px] border-amber-400/20", i % 2 === 0 ? "rounded-tl-4xl rounded-bl-4xl" : "rounded-tr-4xl rounded-br-4xl")} />
+                                <div className={clsx("scroll_row_item_img md:h-[20rem] md:w-[11rem] h-[10rem] w-[5rem]", i % 2 === 0 ? "rounded-tl-4xl rounded-bl-4xl" : "rounded-tr-4xl rounded-br-4xl")}>
+                                    <img src={item.img} alt="" className={clsx("md:h-[20rem] md:w-[11rem] h-[10rem] w-[5rem] border-[1px] border-amber-400/20 object-cover", i % 2 === 0 ? "rounded-tl-4xl rounded-bl-4xl" : "rounded-tr-4xl rounded-br-4xl")} />
                                 </div>
                             </div>
                         ))}

@@ -266,7 +266,7 @@ const WorkSection = () => {
                             </div>
                         </div>
                         <div ref={cardImgRef} className="card-img">
-                            <img src="/img/card-img-1.jpg" alt="" />
+                            <img src="https://cdn.cosmos.so/796717fa-e94d-45b4-96e4-14e2734f77df?format=jpeg" alt="" />
                         </div>
                     </div>
                 </div>

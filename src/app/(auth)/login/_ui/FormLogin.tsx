@@ -18,7 +18,7 @@ const FormLogin = () => {
                 chars: "01!<>-_\/[]{}—=+*^?#________",
             },
             ease: "power3.out",
-            duration: 0.9,
+            duration: 1.2,
         })
     })
 
@@ -29,7 +29,7 @@ const FormLogin = () => {
                 chars: "01!<>-_\/[]{}—=+*^?#________",
             },
             ease: "power3.out",
-            duration: 0.9,
+            duration: 1.2,
         })
     })
 
