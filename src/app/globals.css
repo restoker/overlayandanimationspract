@@ -1,3 +1,10 @@
+/* @font-face {
+  font-family: "Manrope";
+  src: url("/fonts/CabinetGrotesk-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: bold;
+} */
+
 @import "tailwindcss";
 
 :root {
@@ -10,6 +17,7 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-cabinet: var(--font-cabinet-bold);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -22,7 +30,8 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-cabinet);
+  /* font-family: Arial, Helvetica, sans-serif; */
 }
 
 .scroll_row {

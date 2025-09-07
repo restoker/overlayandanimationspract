@@ -37,7 +37,7 @@ const TitleAndSubtitle = () => {
             <div className='overflow-hidden'>
                 <h2
                     ref={titleRef}
-                    className="mt-8 text-2xl/9 font-bold tracking-tight text-white"
+                    className="mt-8 text-2xl/9 font-extrabold font-cabinet tracking-tight text-white"
                     onMouseEnter={handleHoverTittle}
                 >
                     Sign in to your account

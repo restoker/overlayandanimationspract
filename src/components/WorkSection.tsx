@@ -266,7 +266,11 @@ const WorkSection = () => {
                             </div>
                         </div>
                         <div ref={cardImgRef} className="card-img">
-                            <img src="https://cdn.cosmos.so/796717fa-e94d-45b4-96e4-14e2734f77df?format=jpeg" alt="" />
+                            <img
+                                src="https://cdn.cosmos.so/796717fa-e94d-45b4-96e4-14e2734f77df?format=jpeg"
+                                alt=""
+                            // className="w-full h-full object-cover object-center"
+                            />
                         </div>
                     </div>
                 </div>
@@ -284,7 +288,11 @@ const WorkSection = () => {
                             </div>
                         </div>
                         <div className="card-img">
-                            <img src="/img/card-img-2.jpg" alt="" />
+                            <img
+                                src="https://cdn.cosmos.so/930d38e1-3caa-470f-b278-a47fd87b784d?format=jpeg"
+                                alt=""
+                                className="w-full h-full object-cover object-center"
+                            />
                         </div>
                     </div>
                 </div>
@@ -302,7 +310,11 @@ const WorkSection = () => {
                             </div>
                         </div>
                         <div className="card-img">
-                            <img src="/img/card-img-3.jpg" alt="" />
+                            <img
+                                src="https://cdn.cosmos.so/9d37489a-0abf-44c7-80af-fd9af8db33f3?format=jpeg"
+                                alt=""
+                                className="w-full h-full object-cover object-center"
+                            />
                         </div>
                     </div>
                 </div>
@@ -320,7 +332,11 @@ const WorkSection = () => {
                             </div>
                         </div>
                         <div className="card-img">
-                            <img src="/img/card-img-4.jpg" alt="" />
+                            <img
+                                src="https://cdn.cosmos.so/ced20d27-3b2b-48b2-88d9-46e3d57a1e2d?format=jpeg"
+                                alt=""
+                                className="w-full h-full object-cover object-center"
+                            />
                         </div>
                     </div>
                 </div>
