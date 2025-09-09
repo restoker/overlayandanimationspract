@@ -289,7 +289,7 @@ const WorkSection = () => {
                         </div>
                         <div className="card-img">
                             <img
-                                src="https://cdn.cosmos.so/930d38e1-3caa-470f-b278-a47fd87b784d?format=jpeg"
+                                src="https://cdn.cosmos.so/2227405e-003b-4601-af57-354942f4823a?format=jpeg"
                                 alt=""
                                 className="w-full h-full object-cover object-center"
                             />

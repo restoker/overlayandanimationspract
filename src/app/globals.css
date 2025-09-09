@@ -121,6 +121,8 @@ body {
   align-items: flex-end;
   justify-content: center;
   z-index: 1;
+  color: #fff;
+  mix-blend-mode: difference;
 }
 
 .card-content .card-title {

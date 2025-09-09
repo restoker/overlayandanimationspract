@@ -1,7 +1,7 @@
 'use client';
 import React, { useState } from 'react'
 import { Dialog, DialogPanel } from '@headlessui/react'
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
+import { ArrowRightIcon, Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { useViewTransition } from '@/hooks/useViewTransition';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
@@ -20,8 +20,8 @@ const TopBar = () => {
     const pathname = usePathname();
     console.log(pathname);
     return (
-        <header className="absolute inset-x-0 top-0 z-50">
-            <div className="mx-auto max-w-7xl px-6 pt-6 lg:pr-0 lg:pl-8">
+        <header className="absolute inset-x-0 top-0 z-50 mix-blend-difference">
+            <div className="mx-auto max-w-7xl px-6 pt-6 lg:pr-0 lg:pl-8 ">
                 {/* <div className="px-6 pt-6 lg:max-w-2xl lg:pr-0 lg:pl-8 bg-red-400"> */}
                 <nav aria-label="Global" className="flex items-center justify-between">
                     <Link
@@ -35,11 +35,13 @@ const TopBar = () => {
                         }}
                     >
                         <span className="sr-only">Your Company</span>
-                        <img
+                        {/* <img
                             alt="Your Company"
                             src="https://cdn.cosmos.so/7d926916-feea-442f-9657-f75b223072dc?format=jpeg"
                             className="h-10 w-auto rounded-full"
-                        />
+                        /> */}
+
+                        <p className='text-white text-3xl font-bold'>/R</p>
                     </Link>
                     {/* <button
                             type="button"
@@ -49,18 +51,19 @@ const TopBar = () => {
                             <span className="sr-only">Open main menu</span>
                             <Bars3Icon aria-hidden="true" className="size-6" />
                         </button> */}
-                    <div className="-m-2.5 rounded-md p-2.5 text-gray-200">
+                    <div className="-m-2.5 rounded-md p-2.5">
                         {/* {navigation.map((item) => ( */}
                         <a
                             key={'login'}
                             href={'/login'}
-                            className="text-sm/6 font-semibold text-white"
+                            className="text-lg font-semibold flex items-center text-white mix-blend-darken"
                             onClick={(e) => {
                                 e.preventDefault();
                                 navigateWithTransition('/login');
                             }}
                         >
                             Login
+                            <ArrowRightIcon aria-hidden="true" className="size-4 ml-1 text-white" />
                         </a>
                         {/* ))} */}
                     </div>
